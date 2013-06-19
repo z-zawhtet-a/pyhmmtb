@@ -12,7 +12,6 @@ from scipy.io.matlab.mio import loadmat, savemat
 from pickle import load, dump
 from pyhmmtb.stats.mixgauss import mixgauss_init
 
-@unittest.skip('')
 class MkstochasticTest(unittest.TestCase):
     
     def testVector(self):
@@ -36,7 +35,6 @@ class MkstochasticTest(unittest.TestCase):
         
         assert np.all(np.abs(np.sum(M, 2)-np.ones((3,3)))<1e-3)
 
-@unittest.skip('')
 class MhmmSampleTest(unittest.TestCase):
     
     def test(self):
@@ -60,7 +58,6 @@ class MhmmSampleTest(unittest.TestCase):
                                                                          [3],
                                                                          [3]])) < 1e-1)
 
-@unittest.skip('')
 class MhmmEM1DTest(unittest.TestCase):
     
     def setUp(self):
@@ -122,8 +119,7 @@ class MhmmEM1DTest(unittest.TestCase):
         assert np.all(np.abs(mu1-self.mu)<1e-1)
         assert np.all(np.abs(Sigma1-self.Sigma)<2e-2)
         assert np.all(np.abs(mixmat1-self.mixmat) < 1e-1)
-        
-@unittest.skip('')
+
 class MhmmEM2DTest(unittest.TestCase):
     
     def setUp(self):
