@@ -78,7 +78,7 @@ class GMMHMM(_BaseHMM):
                 self.means_ = np.transpose(np.reshape(mu0, (O, M, Q)), (0,2,1))
             
             if 'c' in self.init_params:
-                self.covar_ = np.transpose(np.reshape(Sigma0, (O, O, M, Q)), (0, 1, 3, 2))
+                self.covars_ = np.transpose(np.reshape(Sigma0, (O, O, M, Q)), (0, 1, 3, 2))
         
         mixmat0, _ = mk_stochastic(np.random.rand(Q,M))
         
@@ -86,7 +86,7 @@ class GMMHMM(_BaseHMM):
                                                               prior=self.startprob_, 
                                                               transmat=self.transmat_, 
                                                               mu=self.means_, 
-                                                              Sigma=self.covar_, 
+                                                              Sigma=self.covars_, 
                                                               mixmat=mixmat0,
                                                               max_iter=self.n_iter,
                                                               thresh=self.thresh,
@@ -99,7 +99,7 @@ class GMMHMM(_BaseHMM):
         self.startprob_ = prior1
         self.transmat_ = transmat1
         self.means_ = mu1
-        self.covar_ = Sigma1
+        self.covars_ = Sigma1
         self.weights_ = mixmat1
 
     def score(self, obs):
@@ -107,7 +107,7 @@ class GMMHMM(_BaseHMM):
         
         lp = np.empty((len(obs),))
         for i in range(len(obs)):
-            lp[i], err = mhmm_logprob(data=[obs[i]], prior=self.startprob_, transmat=self.transmat_, mu=self.means_, Sigma=self.covar_, mixmat=self.weights_)
+            lp[i], err = mhmm_logprob(data=[obs[i]], prior=self.startprob_, transmat=self.transmat_, mu=self.means_, Sigma=self.covars_, mixmat=self.weights_)
         return lp
     
     def _convertObs(self, obs):
